@@ -1,5 +1,6 @@
 package dev.uttar.JournalApplication.service;
 
+import dev.uttar.JournalApplication.entities.JournalEntry;
 import dev.uttar.JournalApplication.entities.User;
 import dev.uttar.JournalApplication.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -22,9 +23,30 @@ public class UserService {
 
     public void saveUser(User user)
     {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         user.setRoles(Arrays.asList("USER"));
         userRepository.save(user);
+    }
+
+    public void saveAdmin(User user)
+    {
+        if (!user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        user.setRoles(Arrays.asList("USER","ADMIN"));
+        userRepository.save(user);
+    }
+
+    public void updateUser(User updatedUser) {
+        User existingUser = userRepository.findById(updatedUser.getId()).orElseThrow();
+
+        if (!updatedUser.getPassword().equals(existingUser.getPassword())) {
+            updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+
+        userRepository.save(updatedUser);
     }
 
     public List<User> getAll()
@@ -51,6 +73,8 @@ public class UserService {
     {
         User user = findByUsername(username);
         if(user != null)
+        {
             userRepository.delete(user);
+        }
     }
 }

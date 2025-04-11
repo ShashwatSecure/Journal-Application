@@ -3,6 +3,7 @@ package dev.uttar.JournalApplication.service;
 import dev.uttar.JournalApplication.entities.JournalEntry;
 import dev.uttar.JournalApplication.entities.User;
 import dev.uttar.JournalApplication.repository.JournalEntryRepository;
+import dev.uttar.JournalApplication.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class JournalEntryService {
             User user = userService.findByUsername(userName);
             user.getJournalEntries().add(journalEntry);
             journalEntryRepository.save(journalEntry);
-            userService.saveUser(user);
+            userService.updateUser(user);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +53,7 @@ public class JournalEntryService {
                 break;
             }
         }
-        userService.saveUser(user);
+        userService.updateUser(user);
         journalEntryRepository.deleteById(id);
     }
 }
