@@ -1,0 +1,13 @@
+dev/uttar/JournalApplication/repository/JournalEntryRepository.class
+dev/uttar/JournalApplication/JournalApplication.class
+dev/uttar/JournalApplication/controller/AdminController.class
+dev/uttar/JournalApplication/entities/User.class
+dev/uttar/JournalApplication/config/SpringSecurity.class
+dev/uttar/JournalApplication/entities/JournalEntry.class
+dev/uttar/JournalApplication/service/UserDetailsServiceImpl.class
+dev/uttar/JournalApplication/controller/UserController.class
+dev/uttar/JournalApplication/service/JournalEntryService.class
+dev/uttar/JournalApplication/service/UserService.class
+dev/uttar/JournalApplication/controller/JournalEntryController.class
+dev/uttar/JournalApplication/repository/UserRepository.class
+dev/uttar/JournalApplication/controller/PublicController.class

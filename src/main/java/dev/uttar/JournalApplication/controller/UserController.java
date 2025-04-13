@@ -30,5 +30,4 @@ public class UserController {
         userService.saveUser(newUser);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
