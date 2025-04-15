@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+          background: linear-gradient(145deg, #0f0f1a, #1a1a2e);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+        .login-container {
+          background-color: #222244;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px rgba(128, 0, 255, 0.4);
+          width: 320px;
+        }
+        .login-container h2 {
+          color: #ffffff;
+          text-align: center;
+          margin-bottom: 24px;
+          font-size: 28px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+          width: 100%;
+          padding: 12px 16px;
+          margin-bottom: 20px;
+          border: none;
+          border-radius: 10px;
+          background-color: #3c0f64; /* Dark purple */
+          color: #fff; /* Text color */
+          font-size: 16px;
+        }
+        .login-container input::placeholder {
+          color: #ffffff; /* Placeholder text color */
+          opacity: 1; /* Fully visible */
+        }
+        .login-container input:focus {
+          outline: none;
+          background-color: #4a1475; /* Slightly lighter on focus */
+        }
+        .login-container button {
+          width: 100%;
+          padding: 12px;
+          background-color: #9b59b6;
+          border: none;
+          border-radius: 10px;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        .login-container button:hover {
+          background-color: #b084f0;
+        }
+        .login-container .footer {
+          text-align: center;
+          margin-top: 16px;
+          color: #aaa;
+          font-size: 14px;
+        }
+        .login-container .footer a {
+          color: #c792ff;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        .login-container .footer a:hover {
+          text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Login</h2>
+    <form th:action="@{/login}" method="post">
+        <input type="text" placeholder="Username" name="username" required />
+        <input type="password" placeholder="Password" name="password" required />
+        <button type="submit">Sign In</button>
+    </form>
+    <div class="footer">
+        Don't have an account? <a th:href="@{/signup}">Sign up</a>
+    </div>
+</div>
+</body>
+</html>

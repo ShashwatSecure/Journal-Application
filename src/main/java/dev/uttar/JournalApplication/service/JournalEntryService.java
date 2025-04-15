@@ -3,8 +3,9 @@ package dev.uttar.JournalApplication.service;
 import dev.uttar.JournalApplication.entities.JournalEntry;
 import dev.uttar.JournalApplication.entities.User;
 import dev.uttar.JournalApplication.repository.JournalEntryRepository;
-import dev.uttar.JournalApplication.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,8 @@ public class JournalEntryService {
 
     @Autowired
     private UserService userService;
+
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
     public void saveEntry(JournalEntry journalEntry,String userName)
     {

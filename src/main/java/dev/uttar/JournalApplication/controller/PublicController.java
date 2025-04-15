@@ -5,22 +5,31 @@ import dev.uttar.JournalApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class PublicController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/")
-    public ResponseEntity<String> homePage()
+    public String homePage()
     {
-        try {
-            return new ResponseEntity<>("Welcome to The Journal Entry Application", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Could not load Page",HttpStatus.BAD_REQUEST);
-        }
+        return "homepage";
+    }
+
+    @GetMapping("/login")
+    public String loginPage()
+    {
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String signupPage()
+    {
+        return "signup";
     }
 
     @PostMapping("/add-user")

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign Up</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+          background: linear-gradient(145deg, #0f0f1a, #1a1a2e);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+
+        .signup-container {
+          background-color: #222244;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px rgba(128, 0, 255, 0.4);
+          width: 360px;
+        }
+
+        .signup-container h2 {
+          color: #ffffff;
+          text-align: center;
+          margin-bottom: 24px;
+          font-size: 28px;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"] {
+          width: 100%;
+          padding: 12px 16px;
+          margin-bottom: 20px;
+          border: none;
+          border-radius: 10px;
+          background-color: #3c0f64;
+          color: #fff;
+          font-size: 16px;
+        }
+
+        .signup-container input::placeholder {
+          color: #ffffff;
+        }
+
+        .signup-container input:focus {
+          outline: none;
+          background-color: #4a1475;
+        }
+
+        .custom-multiselect {
+          background-color: #3c0f64;
+          border-radius: 10px;
+          padding: 10px;
+          color: white;
+          margin-bottom: 20px;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .custom-multiselect .selected-roles {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .custom-multiselect .tag {
+          background-color: #9b59b6;
+          padding: 6px 10px;
+          border-radius: 8px;
+          font-size: 14px;
+        }
+
+        .custom-multiselect .options {
+          display: none;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .custom-multiselect.active .options {
+          display: flex;
+        }
+
+        .custom-multiselect .option {
+          background-color: #4a1475;
+          padding: 8px;
+          border-radius: 6px;
+          text-align: center;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+
+        .custom-multiselect .option:hover {
+          background-color: #6b28a9;
+        }
+
+        .signup-container button {
+          width: 100%;
+          padding: 12px;
+          background-color: #9b59b6;
+          border: none;
+          border-radius: 10px;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .signup-container button:hover {
+          background-color: #b084f0;
+        }
+
+        .signup-container .footer {
+          text-align: center;
+          margin-top: 16px;
+          color: #aaa;
+          font-size: 14px;
+        }
+
+        .signup-container .footer a {
+          color: #c792ff;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .signup-container .footer a:hover {
+          text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <input type="text" placeholder="Username" required />
+        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Confirm Password" required />
+
+        <div class="custom-multiselect" id="roleSelector">
+            <label style="color: white; margin-bottom: 8px; display: block;">Select the roles : </label>
+            <div class="selected-roles" id="selectedRoles"></div>
+            <div class="options" id="roleOptions">
+                <div class="option" data-role="User">User</div>
+                <div class="option" data-role="Admin">Admin</div>
+            </div>
+        </div>
+
+
+        <input type="hidden" name="roles" id="rolesInput" />
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <div class="footer">
+        Already have an account? <a onclick="location.href='/login'">Login</a>
+    </div>
+</div>
+
+<script>
+    const roleSelector = document.getElementById('roleSelector');
+    const selectedRolesContainer = document.getElementById('selectedRoles');
+    const roleOptions = document.getElementById('roleOptions');
+    const rolesInput = document.getElementById('rolesInput');
+
+    const selectedRoles = new Set();
+
+    roleSelector.addEventListener('click', () => {
+      roleSelector.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.option').forEach(option => {
+      option.addEventListener('click', e => {
+        e.stopPropagation();
+        const role = option.getAttribute('data-role');
+        if (selectedRoles.has(role)) {
+          selectedRoles.delete(role);
+        } else {
+          selectedRoles.add(role);
+        }
+        updateSelectedRolesUI();
+      });
+    });
+
+    function updateSelectedRolesUI() {
+      selectedRolesContainer.innerHTML = '';
+      selectedRoles.forEach(role => {
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+        tag.innerText = role;
+        selectedRolesContainer.appendChild(tag);
+      });
+      rolesInput.value = Array.from(selectedRoles).join(',');
+    }
+
+    // Optional: Prevent form submission for testing
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Selected roles: ' + rolesInput.value);
+    });
+</script>
+</body>
+</html>

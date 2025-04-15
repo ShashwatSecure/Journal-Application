@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Journal App - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: 'Quicksand', sans-serif;
+          background: linear-gradient(135deg, #1a1a2e, #3c0f64);
+          color: white;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 25px 60px;
+        }
+
+        .logo {
+          font-size: 28px;
+          font-weight: bold;
+          color: #c792ff;
+        }
+
+        .auth-buttons button {
+          margin-left: 15px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 6px;
+          font-size: 15px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .login-btn {
+          background-color: transparent;
+          border: 1px solid #c792ff;
+          color: #c792ff;
+        }
+
+        .login-btn:hover {
+          background-color: #4a1475;
+          color: white;
+        }
+
+        .signup-btn {
+          background-color: #9b59b6;
+          color: white;
+        }
+
+        .signup-btn:hover {
+          background-color: #b084f0;
+        }
+
+        .hero {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 0 40px;
+        }
+
+        .hero h1 {
+          font-size: 48px;
+          margin-bottom: 20px;
+          color: #fff;
+        }
+
+        .hero p {
+          font-size: 18px;
+          color: #ccc;
+          max-width: 600px;
+          margin-bottom: 40px;
+        }
+
+        .get-started-btn {
+          padding: 14px 26px;
+          font-size: 16px;
+          border: none;
+          border-radius: 8px;
+          background-color: #c792ff;
+          color: white;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .get-started-btn:hover {
+          background-color: #b084f0;
+        }
+
+        @media (max-width: 768px) {
+          .hero h1 {
+            font-size: 36px;
+          }
+
+          header {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">YourJournal</div>
+    <div class="auth-buttons">
+        <button class="login-btn" onclick="location.href='/login'">Login</button>
+        <button class="signup-btn" onclick="location.href='/signup'">Signup</button>
+    </div>
+</header>
+
+<div class="hero">
+    <h1>Write Freely. Remember Always.</h1>
+    <p>YourJournal is your personal space to write, reflect, and preserve your thoughts. Wherever you are, your stories stay safe and close.</p>
+    <button class="get-started-btn" onclick="location.href='/signup'">Get Started</button>
+</div>
+
+</body>
+</html>

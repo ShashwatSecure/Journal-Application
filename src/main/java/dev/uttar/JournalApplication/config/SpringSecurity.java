@@ -20,6 +20,9 @@ public class SpringSecurity {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customSuccessHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -28,10 +31,16 @@ public class SpringSecurity {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
-                .httpBasic(withDefaults -> {})
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(customSuccessHandler)
+                        .failureUrl("/login?error=true")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .permitAll())
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
