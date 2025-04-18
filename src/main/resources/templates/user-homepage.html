@@ -187,18 +187,17 @@
 
 <!--    structure of an entry being shown-->
     <div th:each="entry : ${entries}" class="journal-entry">
-        <h3 th:text = "${entry.title}">Journal Title</h3>
-        <p class="entry-text" contenteditable="false" th:text = "${entry.content}">
+        <h3 th:text="${entry.title}">Journal Title</h3>
+        <p class="entry-text" contenteditable="false" th:text="${entry.content}">
             Journal content goes here...
         </p>
         <div class="entry-actions">
-            <form th:action="@{/journal-entries/{username}/update/{entryId}(username=${username}, entryId=${entry.id})}" method="post">
-                <input type="hidden" name="_method" value="put" />
-                <input type="text" name="title" th:value="${entry.title}" />
-                <textarea name="content" th:text="${entry.content}"></textarea>
-
-                <button type="submit" class="edit-btn">Update</button>
-            </form>
+            <button class="update-btn"
+                    th:data-entry-id="${entry.id}"
+                    th:data-entry-title="${entry.title}"
+                    th:data-entry-content="${entry.content}">
+                Update
+            </button>
             <button class="delete-btn">Delete</button>
         </div>
     </div>
@@ -259,6 +258,64 @@
             modal.style.display = 'none';
           }
         });
+    </script>
+</div>
+
+<div id="updateJournalModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeUpdateModal">&times;</span>
+        <h2>Edit Journal</h2>
+        <form th:action="@{/journal-entries/{username}/update/{entryId}(username='', entryId='')}"
+              method="post"
+              id="journalUpdateForm"
+              th:object="${entryToUpdate}">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" name="username" th:value="${username}" /> <label for="journalUpdateTitle">Title:</label>
+            <input type="text" id="journalUpdateTitle" placeholder="Title for your journal" name="title" th:field="*{title}" required/>
+
+            <label for="journalUpdateContent">Content:</label>
+            <textarea id="journalUpdateContent" th:field="*{content}" name="content" required></textarea>
+
+            <button type="submit">Update Journal</button>
+        </form>
+    </div>
+    <script>
+        const updateButtons = document.querySelectorAll('.update-btn');
+ const updateModal = document.getElementById('updateJournalModal');
+ const closeUpdateBtn = document.getElementById('closeUpdateModal');
+ const updateForm = document.getElementById('journalUpdateForm');
+ const updateTitleInput = document.getElementById('journalUpdateTitle');
+ const updateContentTextarea = document.getElementById('journalUpdateContent');
+ const entryIdInput = updateForm.querySelector('input[name="id"]'); // Get the hidden ID field
+
+ updateButtons.forEach(button => {
+     button.addEventListener('click', () => {
+         const entryId = button.dataset.entryId;
+         const entryTitle = button.dataset.entryTitle;
+         const entryContent = button.dataset.entryContent;
+
+         // Set the action URL of the form with the correct entry ID
+         updateForm.action = `/journal-entries/${/*[[${username}]]*/ ''}/update/${entryId}`;
+
+         // Populate the form fields with the data of the entry to be updated
+         entryIdInput.value = entryId;
+         updateTitleInput.value = entryTitle;
+         updateContentTextarea.value = entryContent;
+
+         updateModal.style.display = 'block';
+     });
+ });
+
+ closeUpdateBtn.addEventListener('click', () => {
+     updateModal.style.display = 'none';
+ });
+
+ window.addEventListener('click', (e) => {
+     if (e.target === updateModal) {
+         updateModal.style.display = 'none';
+     }
+ });
     </script>
 </div>
 

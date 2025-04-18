@@ -38,6 +38,7 @@ public class UserController {
         List<JournalEntry> entries = journalEntryService.getAll(username);
         model.addAttribute("username",username);
         model.addAttribute("entries",entries);
+        model.addAttribute("entryToUpdate",new JournalEntry());
         return "user-homepage";
     }
 
